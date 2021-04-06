@@ -19,9 +19,6 @@ public class GameUtility {
 
   public static double mapRange(double input, double inputStart, double inputEnd, double outputStart,
       double outputEnd) {
-    if (input > inputEnd) {
-      return AutonomousObject.maxForce;
-    }
     return outputStart + ((outputEnd - outputStart) / (inputEnd - inputStart)) * (input - inputStart);
   }
 

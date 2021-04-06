@@ -5,8 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Path2D.Double;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.stream.Collector;
+import utility.GameUtility;
 import utility.Vector;
 
 public class AutonomousObject {
@@ -26,19 +25,20 @@ public class AutonomousObject {
 
   public static double maxSpeed = 150;
 
-  public static double maxForce = 130;
+  public static double maxForce = 10;
 
   public static double attractionDistance = 100;
 
-  public static double minForce = 50;
+  public static double minForce = 80;
 
   private Path2D objectPath = new Double();
 
   public AutonomousObject() {
 
-    vertices[0] = new Vector(100, 100);
-    vertices[1] = new Vector(120, 130);
-    vertices[2] = new Vector(140, 100);
+    double offSet = GameUtility.mapRandomValue(Math.random());
+    vertices[0] = new Vector(offSet, offSet);
+    vertices[1] = new Vector(20+offSet, 30+offSet);
+    vertices[2] = new Vector(40+offSet, offSet);
 
     position = calculateCentroid();
 
@@ -53,9 +53,9 @@ public class AutonomousObject {
   public void render(Graphics2D graphics2D, Color color) {
     Color prevColor = graphics2D.getColor();
     graphics2D.setColor(color);
-    graphics2D.rotate( Math.PI + position.getAngle(), position.getX(), position.getY());
+    graphics2D.rotate( velocity.getAngle() - Math.PI/2, position.getX(), position.getY());
     graphics2D.draw(objectPath);
-    graphics2D.rotate( Math.PI + position.getAngle(), position.getX(), position.getY());
+    graphics2D.rotate( -(velocity.getAngle() - Math.PI/2), position.getX(), position.getY());
     graphics2D.setColor(prevColor);
     objectPath.reset();
   }
