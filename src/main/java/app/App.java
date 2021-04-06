@@ -6,8 +6,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import object.AutonomousObject;
-import utility.Vector;
+import object.Handler;
+import utility.MouseListener;
 
 public class App extends Canvas implements Runnable{
 
@@ -18,9 +18,14 @@ public class App extends Canvas implements Runnable{
   static int totalSeconds = 1;
   private boolean running = false;
 
-  AutonomousObject autonomousObject = new AutonomousObject();
+  private Handler handler;
 
   public App() {
+
+    handler = new Handler();
+    MouseListener mouseListener = new MouseListener(handler);
+    this.addMouseListener(mouseListener);
+    this.addMouseMotionListener(mouseListener);
   }
 
   @Override
@@ -41,7 +46,7 @@ public class App extends Canvas implements Runnable{
       lastTime = now;
 
       if (unprocessed >= 1.0) {
-        autonomousObject.update(difference, new Vector(0,0));
+        handler.update(difference);
         unprocessed--;
         tps++;
         canRender = true;
@@ -78,7 +83,7 @@ public class App extends Canvas implements Runnable{
 
     clearScreen(g);
 
-    autonomousObject.render(g, Color.cyan);
+    handler.render(g);
 
     g.dispose();
     bs.show();

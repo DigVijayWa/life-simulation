@@ -24,13 +24,13 @@ public class AutonomousObject {
 
   private boolean fixed = false;
 
-  public static double maxSpeed = 210;
+  public static double maxSpeed = 150;
 
-  public static double maxForce = 30;
+  public static double maxForce = 130;
 
   public static double attractionDistance = 100;
 
-  public static double minForce = 30;
+  public static double minForce = 50;
 
   private Path2D objectPath = new Double();
 
@@ -53,11 +53,14 @@ public class AutonomousObject {
   public void render(Graphics2D graphics2D, Color color) {
     Color prevColor = graphics2D.getColor();
     graphics2D.setColor(color);
+    graphics2D.rotate( Math.PI + position.getAngle(), position.getX(), position.getY());
     graphics2D.draw(objectPath);
+    graphics2D.rotate( Math.PI + position.getAngle(), position.getX(), position.getY());
     graphics2D.setColor(prevColor);
+    objectPath.reset();
   }
 
-  public void update(long timePassed, Vector accelaration) {
+  public void update(double timePassed, Vector accelaration) {
     if (!fixed) {
 
       double timePassedSeconds = 0.01666666666;
@@ -67,7 +70,7 @@ public class AutonomousObject {
 
       updatePath(velocity, timePassedSeconds);
       calculatePath();
-      calculateCentroid();
+      position = calculateCentroid();
 
       accelaration.setXandY(0, 0);
     }
