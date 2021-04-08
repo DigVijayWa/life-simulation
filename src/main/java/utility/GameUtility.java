@@ -1,6 +1,14 @@
 package utility;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
+import javax.imageio.ImageIO;
 import object.AutonomousObject;
 
 public class GameUtility {
@@ -14,12 +22,14 @@ public class GameUtility {
   }
 
   public static double mapRandomValue(double randomValue) {
-    return 0 + ((640)) * (randomValue - 0);
+    return 0 + ((800)) * (randomValue - 0);
   }
 
-  public static double mapRange(double input, double inputStart, double inputEnd, double outputStart,
+  public static double mapRange(double input, double inputStart, double inputEnd,
+      double outputStart,
       double outputEnd) {
-    return outputStart + ((outputEnd - outputStart) / (inputEnd - inputStart)) * (input - inputStart);
+    return outputStart + ((outputEnd - outputStart) / (inputEnd - inputStart)) * (input
+        - inputStart);
   }
 
   public static Vector calculateEffectiveVector(Vector currentPosition, Vector targetPosition) {
@@ -31,34 +41,26 @@ public class GameUtility {
     if (distance > AutonomousObject.attractionDistance) {
       return AutonomousObject.minForce;
     }
-    return maxVelocity + ((AutonomousObject.minForce - maxVelocity) / AutonomousObject.attractionDistance) * (distance);
+    return maxVelocity
+        + ((AutonomousObject.minForce - maxVelocity) / AutonomousObject.attractionDistance)
+        * (distance);
   }
 
-  public static Color getColorOnSpeed(double magnitude) {
-    if(magnitude < 60){
-      return new Color(50,255,150);
-    }else if(magnitude < 70){
-      return new Color(155,184,255);
-    }else if(magnitude < 80){
-      return new Color(0,85,255);
-    }else if(magnitude < 90){
-      return new Color(0,144,255);
-    }else if(magnitude < 100) {
-      return new Color(0,120,255);
-    }else if(magnitude < 150) {
-      return new Color(189,0,255);
-    } else if(magnitude < 160) {
-      return new Color(255,154,0);
-    } else if(magnitude < 170) {
-      return new Color(1,255,31);
-    } else if(magnitude < 180) {
-      return new Color(227,255,0);
-    } else if(magnitude < 190){
-      return new Color(13,0,255);
-    }else if(magnitude < 200){
-      return new Color(85,23,255);
-    }else{
-      return new Color(101,100,2);
+  public static Optional<List<String>> readNames() {
+
+    ClassLoader classLoader = GameUtility.class.getClassLoader();
+
+    try(Scanner readNames = new Scanner(
+        new File(classLoader.getResource("AwesomeNames.txt").getFile()));) {
+
+      List<String> names = new ArrayList<>();
+      while (readNames.hasNextLine()) {
+        names.add(readNames.nextLine());
+      }
+      return Optional.of(names);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    return Optional.empty();
   }
 }

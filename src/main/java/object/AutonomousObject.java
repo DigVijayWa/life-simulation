@@ -1,10 +1,12 @@
 package object;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Path2D.Double;
 import java.util.Arrays;
+import java.util.List;
 import utility.GameUtility;
 import utility.Vector;
 
@@ -23,7 +25,7 @@ public class AutonomousObject {
 
   private boolean fixed = false;
 
-  public static double maxSpeed = 150;
+  public static double maxSpeed = 200;
 
   public static double maxForce = 10;
 
@@ -33,12 +35,21 @@ public class AutonomousObject {
 
   private Path2D objectPath = new Double();
 
+  private int eatenParticles = 0;
+
+  private String name;
+
+  private static List<String> names;
+  static {
+    names = GameUtility.readNames().orElse(null);
+  }
+
   public AutonomousObject() {
 
     double offSet = GameUtility.mapRandomValue(Math.random());
     vertices[0] = new Vector(offSet, offSet);
-    vertices[1] = new Vector(20+offSet, 30+offSet);
-    vertices[2] = new Vector(40+offSet, offSet);
+    vertices[1] = new Vector(5*1.5+offSet, 19.319*1.5+offSet);
+    vertices[2] = new Vector(10*1.5+offSet, offSet);
 
     position = calculateCentroid();
 
@@ -48,11 +59,15 @@ public class AutonomousObject {
     velocity = new Vector(0, 0);
     gravity = new Vector(0, 5);
     size = 2;
+
+    name = names.get((int)GameUtility.mapRange(Math.random(), 0,1,0, names.size()-1));
   }
 
   public void render(Graphics2D graphics2D, Color color) {
     Color prevColor = graphics2D.getColor();
     graphics2D.setColor(color);
+    graphics2D.setFont(new Font("Monospace", Font.PLAIN, 12));
+    graphics2D.drawString(this.getName(), (int)vertices[1].getX()+3, (int)vertices[1].getY()+3);
     graphics2D.rotate( velocity.getAngle() - Math.PI/2, position.getX(), position.getY());
     graphics2D.draw(objectPath);
     graphics2D.rotate( -(velocity.getAngle() - Math.PI/2), position.getX(), position.getY());
@@ -174,6 +189,22 @@ public class AutonomousObject {
 
   public void setVertices(Vector[] vertices) {
     this.vertices = vertices;
+  }
+
+  public int getEatenParticles() {
+    return eatenParticles;
+  }
+
+  public void setEatenParticles(int eatenParticles) {
+    this.eatenParticles = eatenParticles;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }
 

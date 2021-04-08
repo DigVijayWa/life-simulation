@@ -13,8 +13,8 @@ public class App extends Canvas implements Runnable{
 
   private Thread thread;
 
-  private static final int width = 640;
-  private static final int height = 640;
+  private static final int width = 800;
+  private static final int height = 800;
   static int totalSeconds = 1;
   private boolean running = false;
 

@@ -1,6 +1,7 @@
 package object;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,21 +18,38 @@ public class Handler {
 
   private List<Vector> targets = new LinkedList<>();
 
+  private int blockHeight = 10;
+  private int blockWidth = 65;
+  private int scorePosition = 800 - 60;
+
   public Handler() {
-    autonomousObjectList = IntStream.range(0, 4).mapToObj(item -> new AutonomousObject()).collect(
+    autonomousObjectList = IntStream.range(0, 6).mapToObj(item -> new AutonomousObject()).collect(
         Collectors.toList());
 
-    targets = IntStream.range(0, 50).mapToObj(
+    targets = IntStream.range(0, 100).mapToObj(
         item -> new Vector(GameUtility.mapRandomValue(Math.random()),
             GameUtility.mapRandomValue(Math.random()))).collect(
         Collectors.toList());
   }
 
   public void render(Graphics2D graphics2D) {
-    autonomousObjectList.forEach(item -> item.render(graphics2D, Color.CYAN));
+    final int offset = 10;
+    for(int index=0; index < autonomousObjectList.size()-1; index++){
+
+      AutonomousObject item = autonomousObjectList.get(index);
+      item.render(graphics2D, Color.CYAN);
+      graphics2D.setColor(Color.white);
+      graphics2D.setFont(new Font("Monospace", Font.PLAIN, 12));
+      graphics2D.drawString(item.getName(), (index*blockWidth+offset), scorePosition + 10);
+
+      for(int k=0; k<item.getEatenParticles(); k++) {
+        graphics2D.drawRect(index*blockWidth+offset, scorePosition - 15 - (k*blockHeight), blockWidth, blockHeight);
+      }
+    }
     Color prevColor = graphics2D.getColor();
     graphics2D.setColor(Color.white);
-    targets.forEach(item -> graphics2D.fillOval((int)item.getX(), (int)item.getY(), 5,5));
+
+    targets.forEach(item -> graphics2D.fillOval((int) item.getX(), (int) item.getY(), 5, 5));
     graphics2D.setColor(prevColor);
   }
 
@@ -49,13 +67,15 @@ public class Handler {
 
       Vector targetToSeek = null;
       double minDist = 9999999;
-      for(int k=targets.size()-1; k>=0; k--) {
+      for (int k = targets.size() - 1; k >= 0; k--) {
         double distance = autonomousObjectList.get(i).getPosition().distance(targets.get(k));
-        if(distance <= 3) {
+        if (distance <= 3) {
           targets.remove(k);
+          autonomousObjectList.get(i)
+              .setEatenParticles(autonomousObjectList.get(i).getEatenParticles() + 1);
           break;
         }
-        if(distance < minDist) {
+        if (distance < minDist) {
           minDist = distance;
           targetToSeek = targets.get(k);
         }
