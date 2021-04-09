@@ -9,5 +9,6 @@ of `Autonomous objects`
 
 ## Simulation with only food and competitors
 
-https://user-images.githubusercontent.com/30470311/114162676-f3160880-9946-11eb-89e0-7cef225b65fa.mp4
+![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/30470311/114163103-6d468d00-9947-11eb-9000-758b7705a8f7.gif)
+
 
