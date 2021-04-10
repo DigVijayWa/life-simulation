@@ -3,7 +3,6 @@ package object;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -12,21 +11,21 @@ import utility.Vector;
 
 public class Handler {
 
-  List<AutonomousObject> autonomousObjectList = new LinkedList<>();
+  List<AutonomousObject> autonomousObjectList;
 
   private Vector mouseTarget;
 
-  private List<Vector> targets = new LinkedList<>();
+  private List<Vector> targets;
 
   private int blockHeight = 10;
   private int blockWidth = 65;
   private int scorePosition = 800 - 60;
 
   public Handler() {
-    autonomousObjectList = IntStream.range(0, 6).mapToObj(item -> new AutonomousObject()).collect(
+    autonomousObjectList = IntStream.range(0, 3).mapToObj(item -> new AutonomousObject()).collect(
         Collectors.toList());
 
-    targets = IntStream.range(0, 100).mapToObj(
+    targets = IntStream.range(0, 65).mapToObj(
         item -> new Vector(GameUtility.mapRandomValue(Math.random()),
             GameUtility.mapRandomValue(Math.random()))).collect(
         Collectors.toList());
@@ -34,7 +33,7 @@ public class Handler {
 
   public void render(Graphics2D graphics2D) {
     final int offset = 10;
-    for(int index=0; index < autonomousObjectList.size()-1; index++){
+    for(int index=0; index < autonomousObjectList.size(); index++){
 
       AutonomousObject item = autonomousObjectList.get(index);
       item.render(graphics2D, Color.CYAN);
@@ -42,9 +41,10 @@ public class Handler {
       graphics2D.setFont(new Font("Monospace", Font.PLAIN, 12));
       graphics2D.drawString(item.getName(), (index*blockWidth+offset), scorePosition + 10);
 
-      for(int k=0; k<item.getEatenParticles(); k++) {
+      graphics2D.drawString(""+item.getEatenParticles(),index*blockWidth+offset, scorePosition - 15);
+      /*for(int k=0; k<item.getEatenParticles(); k++) {
         graphics2D.drawRect(index*blockWidth+offset, scorePosition - 15 - (k*blockHeight), blockWidth, blockHeight);
-      }
+      }*/
     }
     Color prevColor = graphics2D.getColor();
     graphics2D.setColor(Color.white);

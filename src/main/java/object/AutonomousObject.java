@@ -106,6 +106,7 @@ public class AutonomousObject {
   }
 
   public Vector calculateCentroid() {
+
     return Arrays.stream(vertices).reduce(new Vector(0, 0), (item, acc) -> acc.additionVector(item))
         .divideByScalar(3);
 
