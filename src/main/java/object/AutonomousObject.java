@@ -196,8 +196,9 @@ public class AutonomousObject {
     return eatenParticles;
   }
 
-  public void setEatenParticles(int eatenParticles) {
+  public int setEatenParticles(int eatenParticles) {
     this.eatenParticles = eatenParticles;
+    return this.eatenParticles;
   }
 
   public String getName() {
