@@ -26,7 +26,6 @@ Decay
 Rubble
 Diablo
 Sasquatch
-Doom
 Scar
 Dracula
 Shiver
@@ -58,3 +57,9 @@ Killer
 Wraith
 Knuckles
 Zero
+Darth Vader
+Lord DOOM
+Gon
+Batman
+Superman
+Tony Stark

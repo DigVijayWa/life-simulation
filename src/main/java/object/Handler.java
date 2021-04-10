@@ -17,12 +17,12 @@ public class Handler {
 
   private List<Vector> targets;
 
-  private int blockHeight = 10;
+  private int blockHeight = 2;
   private int blockWidth = 65;
   private int scorePosition = 800 - 60;
 
   public Handler() {
-    autonomousObjectList = IntStream.range(0, 3).mapToObj(item -> new AutonomousObject()).collect(
+    autonomousObjectList = IntStream.range(0, 5).mapToObj(item -> new AutonomousObject()).collect(
         Collectors.toList());
 
     targets = IntStream.range(0, 65).mapToObj(
@@ -41,10 +41,10 @@ public class Handler {
       graphics2D.setFont(new Font("Monospace", Font.PLAIN, 12));
       graphics2D.drawString(item.getName(), (index*blockWidth+offset), scorePosition + 10);
 
-      graphics2D.drawString(""+item.getEatenParticles(),index*blockWidth+offset, scorePosition - 15);
-      /*for(int k=0; k<item.getEatenParticles(); k++) {
+      //graphics2D.drawString(""+item.getEatenParticles(),index*blockWidth+offset, scorePosition - 15);
+      for(int k=0; k<item.getEatenParticles(); k++) {
         graphics2D.drawRect(index*blockWidth+offset, scorePosition - 15 - (k*blockHeight), blockWidth, blockHeight);
-      }*/
+      }
     }
     Color prevColor = graphics2D.getColor();
     graphics2D.setColor(Color.white);
@@ -57,29 +57,18 @@ public class Handler {
 
     for (int i = autonomousObjectList.size() - 1; i >= 0; i--) {
 
-      /* world is not prepared for greatness
       int finalI = i;
       Vector targetToSeek = targets.stream().reduce(new Vector(99999999, 99999999), (acc, item) ->
           item.distance(autonomousObjectList.get(finalI).getPosition()) < acc
               .distance(autonomousObjectList.get(finalI).getPosition()) ?
               item : acc
-      );*/
+      );
 
-      Vector targetToSeek = null;
-      double minDist = 9999999;
-      for (int k = targets.size() - 1; k >= 0; k--) {
-        double distance = autonomousObjectList.get(i).getPosition().distance(targets.get(k));
-        if (distance <= 3) {
-          targets.remove(k);
-          autonomousObjectList.get(i)
-              .setEatenParticles(autonomousObjectList.get(i).getEatenParticles() + 1);
-          break;
-        }
-        if (distance < minDist) {
-          minDist = distance;
-          targetToSeek = targets.get(k);
-        }
-      }
+      targets = targets.stream().filter(item ->
+          item.distance(autonomousObjectList.get(finalI).getPosition()) > 3
+          &&
+              autonomousObjectList.get(finalI).setEatenParticles(autonomousObjectList.get(finalI).getEatenParticles() + 1) >= 0
+      ).collect(Collectors.toList());
 
       if (targetToSeek != null) {
 
