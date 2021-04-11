@@ -1,6 +1,7 @@
 
 package app;
 
+import Constats.GameConstant;
 import frame.FrameSetter;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -13,8 +14,6 @@ public class App extends Canvas implements Runnable{
 
   private Thread thread;
 
-  private static final int width = 800;
-  private static final int height = 800;
   static int totalSeconds = 1;
   private boolean running = false;
 
@@ -90,7 +89,7 @@ public class App extends Canvas implements Runnable{
   }
   public void clearScreen(Graphics2D g) {
     g.setColor(Color.BLACK);
-    g.fillRect(0, 0, width, height);
+    g.fillRect(0, 0, GameConstant.GAME_WIDTH, GameConstant.GAME_HEIGHT);
   }
   public void start() {
     thread = new Thread(this);
@@ -107,7 +106,7 @@ public class App extends Canvas implements Runnable{
     }
   }
   public static void main(String args[]) {
-    new FrameSetter(width,height,new App());
+    new FrameSetter(GameConstant.GAME_WIDTH, GameConstant.GAME_HEIGHT,new App());
   }
 
 }

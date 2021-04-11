@@ -68,9 +68,9 @@ public class AutonomousObject {
     graphics2D.setColor(color);
     graphics2D.setFont(new Font("Monospace", Font.PLAIN, 12));
     graphics2D.drawString(this.getName(), (int)vertices[1].getX()+3, (int)vertices[1].getY()+3);
-    graphics2D.rotate( velocity.getAngle() - Math.PI/2, position.getX(), position.getY());
+    graphics2D.rotate( velocity.getAngle() - Math.PI/2);
     graphics2D.draw(objectPath);
-    graphics2D.rotate( -(velocity.getAngle() - Math.PI/2), position.getX(), position.getY());
+    graphics2D.rotate( -(velocity.getAngle() - Math.PI/2));
     graphics2D.setColor(prevColor);
     objectPath.reset();
   }
