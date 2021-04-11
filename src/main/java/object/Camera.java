@@ -1,5 +1,6 @@
 package object;
 
+import Constats.GameConstant;
 import utility.Vector;
 
 public class Camera {
@@ -22,7 +23,9 @@ public class Camera {
   }
 
   public void update(double timePassed) {
-
+      double actualTimePassed = 0.01666666666;
+      position.setXandY(player.getAutonomousObject().getPosition().getX() - GameConstant.VIEW_PORT_SIZE_X / 2,
+            player.getAutonomousObject().getPosition().getY() - GameConstant.VIEW_PORT_SIZE_Y / 2);
   }
 
   public Vector getPosition() {

@@ -9,19 +9,24 @@ public class Player {
 
   private int score;
 
-  public Player(AutonomousObject autonomousObject, int score) {
+  public enum PlayerType {
+    LOCAL, REMOTE;
+  }
+
+  private PlayerType playerType;
+
+  public Player(AutonomousObject autonomousObject, int score, PlayerType playerType) {
     this.autonomousObject = autonomousObject;
     this.score = score;
+    this.playerType = playerType;
   }
 
   public void render(Graphics2D graphics2D) {
-    graphics2D.translate((int)autonomousObject.getPosition().getX(), (int)autonomousObject.getPosition().getY());
     autonomousObject.render(graphics2D, Color.CYAN);
-    graphics2D.translate(-(int)autonomousObject.getPosition().getX(), -(int)autonomousObject.getPosition().getY());
   }
 
   public void update(double timepassed) {
-
+    autonomousObject.update(timepassed);
   }
 
   public AutonomousObject getAutonomousObject() {
@@ -38,5 +43,13 @@ public class Player {
 
   public void setScore(int score) {
     this.score = score;
+  }
+
+  public PlayerType getPlayerType() {
+    return playerType;
+  }
+
+  public void setPlayerType(PlayerType playerType) {
+    this.playerType = playerType;
   }
 }

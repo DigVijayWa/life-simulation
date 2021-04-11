@@ -91,6 +91,20 @@ public class AutonomousObject {
     }
   }
 
+  public void update(double timePassed) {
+    if(!fixed) {
+      double timePassedSeconds = 0.01666666666;
+      velocity = velocity.additionVector(this.accelaration);
+      velocity = velocity.limitVector(maxSpeed);
+
+      updatePath(velocity, timePassedSeconds);
+      calculatePath();
+      position = calculateCentroid();
+
+      accelaration.setXandY(0, 0);
+    }
+  }
+
   public void updatePath(Vector velocity, double timePassed) {
     vertices = Arrays.stream(vertices).map(item -> item.additionVector(velocity, timePassed))
         .toArray(Vector[]::new);

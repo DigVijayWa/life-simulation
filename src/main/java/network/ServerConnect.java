@@ -3,6 +3,7 @@ package network;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.UUID;
+import object.PlayerHandler;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONObject;
@@ -10,6 +11,12 @@ import org.json.JSONObject;
 public class ServerConnect {
 
   private static WebSocketClient webSocketClient;
+
+  private PlayerHandler playerHandler;
+
+  public ServerConnect(PlayerHandler playerHandler) {
+    this.playerHandler = playerHandler;
+  }
 
   public static void main(String args[]) throws URISyntaxException {
     webSocketConnection(UUID.randomUUID().toString());
