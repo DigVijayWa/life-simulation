@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import object.Player.PlayerType;
 
 public class PlayerHandler {
@@ -22,8 +24,14 @@ public class PlayerHandler {
     return playerList.add(player);
   }
 
-  public boolean removePlayer(Player player) {
-    return playerList.remove(player);
+  public boolean removePlayer(String playerId) {
+    int tobeDeletedIndex = IntStream.range(0, playerList.size())
+        .reduce((acc, index) -> playerList.get(index).getPlayerId().compareTo(playerId) == 0 ? index : acc).orElse(playerList.size());
+
+    if(tobeDeletedIndex < playerList.size()) {
+      return playerList.remove(tobeDeletedIndex) != null;
+    }
+    return false;
   }
 
   public Optional<Player> getLocalPlayer() {

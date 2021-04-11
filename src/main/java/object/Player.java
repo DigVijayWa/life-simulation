@@ -15,10 +15,13 @@ public class Player {
 
   private PlayerType playerType;
 
-  public Player(AutonomousObject autonomousObject, int score, PlayerType playerType) {
+  private String playerId;
+
+  public Player(AutonomousObject autonomousObject, int score, String playerId, PlayerType playerType) {
     this.autonomousObject = autonomousObject;
     this.score = score;
     this.playerType = playerType;
+    this.playerId = playerId;
   }
 
   public void render(Graphics2D graphics2D) {
@@ -51,5 +54,13 @@ public class Player {
 
   public void setPlayerType(PlayerType playerType) {
     this.playerType = playerType;
+  }
+
+  public String getPlayerId() {
+    return playerId;
+  }
+
+  public void setPlayerId(String playerId) {
+    this.playerId = playerId;
   }
 }

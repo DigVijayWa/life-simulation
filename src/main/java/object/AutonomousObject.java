@@ -63,6 +63,24 @@ public class AutonomousObject {
     name = names.get((int)GameUtility.mapRange(Math.random(), 0,1,0, names.size()-1));
   }
 
+  public AutonomousObject(double x, double y, String name) {
+    double offSet = GameUtility.mapRandomValue(Math.random());
+    vertices[0] = new Vector(x, y);
+    vertices[1] = new Vector(5*1.5+x, 19.319*1.5+y);
+    vertices[2] = new Vector(10*1.5+x, y);
+
+    position = calculateCentroid();
+
+    calculatePath();
+
+    accelaration = new Vector(0, 0);
+    velocity = new Vector(0, 0);
+    gravity = new Vector(0, 5);
+    size = 2;
+
+    this.name = name;
+  }
+
   public void render(Graphics2D graphics2D, Color color) {
     Color prevColor = graphics2D.getColor();
     graphics2D.setColor(color);
