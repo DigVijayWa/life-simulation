@@ -2,14 +2,16 @@ package network;
 
 import com.google.gson.Gson;
 import java.net.URI;
+import java.util.Date;
+import java.util.UUID;
 import object.AutonomousObject;
 import object.Player;
 import object.Player.PlayerType;
 import object.PlayerHandler;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
-import org.json.JSONObject;
 import packet.Packet;
+import packet.PlayerData;
 
 public class MessageProcessor extends WebSocketClient {
 
@@ -33,6 +35,11 @@ public class MessageProcessor extends WebSocketClient {
   @Override
   public void onOpen(ServerHandshake handshakedata) {
     System.out.println("Connection Opened");
+    Player localPlayer = this.playerHandler.getLocalPlayer().orElse(null);
+    this.send(new Packet(new PlayerData(localPlayer.getAutonomousObject().getPosition().getX(),
+        localPlayer.getAutonomousObject().getPosition().getY(),
+        localPlayer.getAutonomousObject().getName()),
+        UUID.randomUUID().toString(), 10, new Date().getTime(), PacketType.PLAYER_JOINED.value).toString());
   }
 
   @Override
@@ -66,7 +73,7 @@ public class MessageProcessor extends WebSocketClient {
   }
 
   private void processPlayerLeftMessage(Packet packet) {
-
+    playerHandler.removePlayer(packet.getId());
   }
 
   private void processPacketMessage(Packet packet) {
