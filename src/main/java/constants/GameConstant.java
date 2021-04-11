@@ -1,4 +1,4 @@
-package Constats;
+package constants;
 
 public class GameConstant {
   public static final int GAME_WIDTH = 800;

@@ -1,7 +1,7 @@
 
 package app;
 
-import Constats.GameConstant;
+import constants.GameConstant;
 import frame.FrameSetter;
 import java.awt.Canvas;
 import java.awt.Color;

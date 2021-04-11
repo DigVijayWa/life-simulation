@@ -1,6 +1,6 @@
 package object;
 
-import Constats.GameConstant;
+import constants.GameConstant;
 import utility.Vector;
 
 public class Camera {
