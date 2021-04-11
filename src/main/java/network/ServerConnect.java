@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public class ServerConnect {
 
-  private static WebSocketClient webSocketClient;
+  private static MessageProcessor webSocketClient;
 
   private PlayerHandler playerHandler;
 
@@ -19,35 +19,16 @@ public class ServerConnect {
   }
 
   public static void main(String args[]) throws URISyntaxException {
-    webSocketConnection(UUID.randomUUID().toString());
+
+    ServerConnect serverConnect = new ServerConnect(new PlayerHandler());
+    serverConnect.webSocketConnection(UUID.randomUUID().toString());
   }
 
-  private static void webSocketConnection(String state) throws URISyntaxException {
+  private void webSocketConnection(String state) throws URISyntaxException {
       String socketUrl = "ws://localhost:8080/connect?id=";
       String webSocketURL = socketUrl + state;
       System.out.print("trying to connect : " + webSocketURL + "\n");
-      webSocketClient = new WebSocketClient(new URI(webSocketURL)) {
-        @Override
-        public void onMessage(String message) {
-          JSONObject jsonObject = new JSONObject(message);
-        }
-
-        @Override
-        public void onOpen(ServerHandshake handshake) {
-          System.out.println("Connection Opened");
-        }
-
-        @Override
-        public void onClose(int code, String reason, boolean remote) {
-          System.out.print("\n Code : " + code + "\n Reason : " + reason + "remote : " + remote);
-          System.out.println("Connection Closed");
-        }
-
-        @Override
-        public void onError(Exception ex) {
-          ex.printStackTrace();
-        }
-      };
+      webSocketClient = new MessageProcessor(new URI(webSocketURL), this.playerHandler);
       webSocketClient.connect();
   }
 }

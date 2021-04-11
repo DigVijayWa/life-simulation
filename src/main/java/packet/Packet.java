@@ -59,10 +59,10 @@ public class Packet {
   @Override
   public String toString() {
     return "{" +
-        "\"data\":\"" + data + "\"" +
+        "\"data\":" + data+
         ", \"id\":\"" + id + "\""+
         ", \"length\":" + length +
-        ", \"correlationId\": \""+correlationId+"\""+
+        ", \"correlationId\":"+correlationId+
         '}';
   }
 }

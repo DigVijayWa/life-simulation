@@ -34,7 +34,7 @@ public class PlayerData {
     return "{" +
         "\"xPosition\":" + xPosition +
         ", \"yPosition\":" + yPosition +
-        ", \"name\":" + name +
+        ", \"name\":\"" + name + "\""+
         "}";
   }
 
