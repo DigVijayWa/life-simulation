@@ -15,4 +15,7 @@ public class GameConstant {
 
   public static final int OFFSET_MIN_X = 0;
   public static final int OFFSET_MIN_Y = 0;
+
+  public static final double forceX = 1.2;
+  public static final double forceY = 1.2;
 }

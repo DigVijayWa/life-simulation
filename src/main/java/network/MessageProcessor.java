@@ -5,6 +5,7 @@ import object.Player;
 import object.Player.PlayerType;
 import object.PlayerHandler;
 import packet.Packet;
+import utility.Vector;
 
 public class MessageProcessor {
 
@@ -23,5 +24,14 @@ public class MessageProcessor {
 
     //TODO:(Digvijay) apply the input to correct the remote player.
 
+    /**
+     * Side effects at its best.
+     * */
+    Player remotePlayer = playerHandler.getRemotePlayers(packet.getId()).orElse(null);
+
+    if (remotePlayer != null) {
+      remotePlayer.getAutonomousObject()
+          .setAccelaration(new Vector(packet.getData().getxInput(), packet.getData().getyInput()));
+    }
   }
 }

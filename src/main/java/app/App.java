@@ -7,7 +7,9 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import javafx.print.PageLayout;
 import object.Handler;
+import object.PlayerHandler;
 import utility.KeyListener;
 import utility.MouseListener;
 
@@ -20,13 +22,16 @@ public class App extends Canvas implements Runnable{
 
   private Handler handler;
 
+  private PlayerHandler playerHandler;
+
   public App() {
 
     handler = new Handler();
+    playerHandler = new PlayerHandler();
     MouseListener mouseListener = new MouseListener(handler);
     this.addMouseListener(mouseListener);
     this.addMouseMotionListener(mouseListener);
-    this.addKeyListener(new KeyListener(handler));
+    this.addKeyListener(new KeyListener(playerHandler));
   }
 
   @Override
@@ -47,7 +52,8 @@ public class App extends Canvas implements Runnable{
       lastTime = now;
 
       if (unprocessed >= 1.0) {
-        handler.update(difference);
+        //handler.update(difference);
+        playerHandler.update(difference);
         unprocessed--;
         tps++;
         canRender = true;
@@ -84,7 +90,8 @@ public class App extends Canvas implements Runnable{
 
     clearScreen(g);
 
-    handler.render(g);
+    //handler.render(g);
+    playerHandler.render(g);
 
     g.dispose();
     bs.show();

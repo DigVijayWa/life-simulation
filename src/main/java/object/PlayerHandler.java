@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import object.Player.PlayerType;
 
@@ -44,5 +45,17 @@ public class PlayerHandler {
 
   public Optional<Player> getLocalPlayer() {
     return playerList.stream().filter(item -> item.getPlayerType() == PlayerType.LOCAL).findFirst();
+  }
+
+  public Optional<Player> getRemotePlayers(String id) {
+    return playerList.stream().filter(item -> item.getPlayerId() == id).findFirst();
+  }
+
+  public List<Player> getPlayerList() {
+    return playerList;
+  }
+
+  public void setPlayerList(List<Player> playerList) {
+    this.playerList = playerList;
   }
 }

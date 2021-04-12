@@ -65,9 +65,9 @@ public class AutonomousObject {
 
   public AutonomousObject(double x, double y, String name) {
     double offSet = GameUtility.mapRandomValue(Math.random());
-    vertices[0] = new Vector(x, y);
-    vertices[1] = new Vector(5*1.5+x, 19.319*1.5+y);
-    vertices[2] = new Vector(10*1.5+x, y);
+    vertices[0] = new Vector(offSet, offSet);
+    vertices[1] = new Vector(5*1.5+offSet, 19.319*1.5+offSet);
+    vertices[2] = new Vector(10*1.5+offSet, offSet);
 
     position = calculateCentroid();
 
@@ -231,6 +231,11 @@ public class AutonomousObject {
   public int setEatenParticles(int eatenParticles) {
     this.eatenParticles = eatenParticles;
     return this.eatenParticles;
+  }
+
+  public void addAccelaration(Vector deltaAcceleration) {
+    this.accelaration.additionVector(deltaAcceleration);
+    this.accelaration.limitVector(maxForce);
   }
 
   public String getName() {

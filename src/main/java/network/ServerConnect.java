@@ -35,8 +35,8 @@ public class ServerConnect extends WebSocketClient {
 
   public static void main(String args[]) throws URISyntaxException {
 
-    ServerConnect serverConnect = new ServerConnect(new PlayerHandler());
-    serverConnect.webSocketConnection(UUID.randomUUID().toString());
+    /*ServerConnect serverConnect = new ServerConnect(new PlayerHandler());
+    serverConnect.webSocketConnection(UUID.randomUUID().toString());*/
   }
 
   private void webSocketConnection(String state) throws URISyntaxException {
