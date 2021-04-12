@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import object.Handler;
+import utility.KeyListener;
 import utility.MouseListener;
 
 public class App extends Canvas implements Runnable{
@@ -25,6 +26,7 @@ public class App extends Canvas implements Runnable{
     MouseListener mouseListener = new MouseListener(handler);
     this.addMouseListener(mouseListener);
     this.addMouseMotionListener(mouseListener);
+    this.addKeyListener(new KeyListener(handler));
   }
 
   @Override

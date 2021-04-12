@@ -15,7 +15,8 @@ public class PlayerHandler {
 
   public PlayerHandler() {
     playerList.add(
-        new Player(new AutonomousObject(100, 100, "Dominator"), 0, UUID.randomUUID().toString(), PlayerType.LOCAL));
+        new Player(new AutonomousObject(100, 100, "Dominator"), 0, UUID.randomUUID().toString(),
+            PlayerType.LOCAL));
   }
 
   public void render(Graphics2D graphics2D) {

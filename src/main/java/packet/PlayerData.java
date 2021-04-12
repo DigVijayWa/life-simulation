@@ -2,38 +2,38 @@ package packet;
 
 public class PlayerData {
 
-  private double xPosition;
-  private double yPosition;
+  private double xInput;
+  private double yInput;
 
   private String name;
 
-  public PlayerData(double xPosition, double yPosition, String name) {
-    this.xPosition = xPosition;
-    this.yPosition = yPosition;
+  public PlayerData(double xInput, double yInput, String name) {
+    this.xInput = xInput;
+    this.yInput = yInput;
     this.name = name;
   }
 
-  public double getxPosition() {
-    return xPosition;
+  public double getxInput() {
+    return xInput;
   }
 
-  public void setxPosition(double xPosition) {
-    this.xPosition = xPosition;
+  public void setxInput(double xInput) {
+    this.xInput = xInput;
   }
 
-  public double getyPosition() {
-    return yPosition;
+  public double getyInput() {
+    return yInput;
   }
 
-  public void setyPosition(double yPosition) {
-    this.yPosition = yPosition;
+  public void setyInput(double yInput) {
+    this.yInput = yInput;
   }
 
   @Override
   public String toString() {
     return "{" +
-        "\"xPosition\":" + xPosition +
-        ", \"yPosition\":" + yPosition +
+        "\"xPosition\":" + xInput +
+        ", \"yPosition\":" + yInput +
         ", \"name\":\"" + name + "\""+
         "}";
   }
