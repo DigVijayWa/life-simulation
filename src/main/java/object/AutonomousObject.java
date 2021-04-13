@@ -14,7 +14,7 @@ public class AutonomousObject {
 
   private Vector position;
   private Vector accelaration;
-  private Vector wind;
+  private Vector friction;
   private Vector velocity;
 
   private Vector gravity;
@@ -58,6 +58,7 @@ public class AutonomousObject {
     accelaration = new Vector(0, 0);
     velocity = new Vector(0, 0);
     gravity = new Vector(0, 5);
+    friction = new Vector(1,1);
     size = 2;
 
     name = names.get((int)GameUtility.mapRange(Math.random(), 0,1,0, names.size()-1));
@@ -159,14 +160,6 @@ public class AutonomousObject {
 
   public void setAccelaration(Vector accelaration) {
     this.accelaration = accelaration;
-  }
-
-  public Vector getWind() {
-    return wind;
-  }
-
-  public void setWind(Vector wind) {
-    this.wind = wind;
   }
 
   public int getSize() {

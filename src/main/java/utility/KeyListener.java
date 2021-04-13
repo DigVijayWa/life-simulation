@@ -15,9 +15,10 @@ public class KeyListener implements java.awt.event.KeyListener {
   }
 
   public enum Direction {
-    LEFT(-1), RIGHT(1);
+    LEFT(-1), RIGHT(1), NO_CHANGE(0);
 
     int value;
+
     private Direction(int value) {
       this.value = value;
     }
@@ -35,21 +36,19 @@ public class KeyListener implements java.awt.event.KeyListener {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_W:
       case KeyEvent.VK_UP:
-        applyForce(new Vector(
-            0, -GameConstant.forceY));
+        changeDirection(Direction.NO_CHANGE, GameConstant.magnitudeChange);
         break;
       case KeyEvent.VK_A:
       case KeyEvent.VK_LEFT:
-        changeDirection(Direction.LEFT);
+        changeDirection(Direction.LEFT, 0);
         break;
       case KeyEvent.VK_S:
       case KeyEvent.VK_DOWN:
-        applyForce(new Vector(
-            0, GameConstant.forceY));
+        changeDirection(Direction.NO_CHANGE, -GameConstant.magnitudeChange);
         break;
       case KeyEvent.VK_D:
       case KeyEvent.VK_RIGHT:
-        changeDirection(Direction.RIGHT);
+        changeDirection(Direction.RIGHT, 0);
         break;
       default:
     }
@@ -75,12 +74,14 @@ public class KeyListener implements java.awt.event.KeyListener {
     }
   }
 
-  public void changeDirection(Direction direction) {
+  public void changeDirection(Direction direction, double magnitudeChange) {
     for (Player player : playerHandler.getPlayerList()) {
       if (player.getPlayerType() == PlayerType.LOCAL) {
         double magnitude = player.getAutonomousObject().getVelocity().getMagnitude();
         double angle = player.getAutonomousObject().getVelocity().getAngle();
-        player.getAutonomousObject().getVelocity().setAngleAndMagnitude(angle + GameConstant.angleChange * direction.value, magnitude);
+        player.getAutonomousObject().getVelocity()
+            .setAngleAndMagnitude(angle + GameConstant.angleChange * direction.value,
+                magnitude + magnitudeChange);
         break;
       }
     }

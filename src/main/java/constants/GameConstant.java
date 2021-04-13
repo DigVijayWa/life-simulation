@@ -20,4 +20,6 @@ public class GameConstant {
   public static final double forceY = 20;
 
   public static final double angleChange = Math.PI / 16;
+
+  public static final double magnitudeChange = 5;
 }
