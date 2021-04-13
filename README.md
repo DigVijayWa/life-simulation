@@ -1,5 +1,7 @@
 # life-simulation
 
+![example workflow](https://github.com/DigVijayWa/life-simulation/actions/workflows/build.yml/badge.svg)
+
 This repo will intend to focus on 
 - Survival
 - Mutation
