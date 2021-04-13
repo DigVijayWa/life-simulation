@@ -102,8 +102,13 @@ public class Vector {
     return angle;
   }
 
-  public void setAngle(double angle) {
+  public void setAngleAndMagnitude(double angle, double magnitude) {
+
     this.angle = angle;
+    this.magnitude = magnitude;
+    this.x = this.magnitude * Math.cos(this.angle);
+    this.y = this.magnitude * Math.sin(this.angle);
+
   }
 
   public void setMagnitude(double magnitude) { this.magnitude = magnitude; }
