@@ -22,7 +22,7 @@ public class Camera {
     this.player = player;
   }
 
-  public void update(double timePassed) {
+  public void update(Player player) {
       double actualTimePassed = 0.01666666666;
       position.setXandY(player.getAutonomousObject().getPosition().getX() - GameConstant.VIEW_PORT_SIZE_X / 2,
             player.getAutonomousObject().getPosition().getY() - GameConstant.VIEW_PORT_SIZE_Y / 2);

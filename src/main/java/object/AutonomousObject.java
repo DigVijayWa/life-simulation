@@ -27,7 +27,7 @@ public class AutonomousObject {
 
   public static double maxSpeed = 200;
 
-  public static double maxForce = 10;
+  public static double maxForce = 16;
 
   public static double attractionDistance = 100;
 
@@ -86,9 +86,10 @@ public class AutonomousObject {
     graphics2D.setColor(color);
     graphics2D.setFont(new Font("Monospace", Font.PLAIN, 12));
     graphics2D.drawString(this.getName(), (int)vertices[1].getX()+3, (int)vertices[1].getY()+3);
-    graphics2D.rotate( velocity.getAngle() - Math.PI/2);
+    if(velocity.getMagnitude() != 0) graphics2D.rotate( velocity.getAngle() - Math.PI/2,
+        position.getX(), position.getY());
     graphics2D.draw(objectPath);
-    graphics2D.rotate( -(velocity.getAngle() - Math.PI/2));
+    if(velocity.getMagnitude() != 0) graphics2D.rotate( -(velocity.getAngle() - Math.PI/2),position.getX(), position.getY());
     graphics2D.setColor(prevColor);
     objectPath.reset();
   }
